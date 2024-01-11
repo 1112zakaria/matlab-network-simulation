@@ -159,3 +159,6 @@ nexttile
 %figure(5)
 stem(1:size(rxData),rxData)
 title('Output Data')
+
+outputTable = table(txData, txSig, awgnSig, therSig, phaseSig, rxData);
+writetable(outputTable, 'satTestTable.csv');
