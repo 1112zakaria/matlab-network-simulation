@@ -1,3 +1,7 @@
+function output = satTest()
+
+output = 5;
+
 %% Variables
 
 SNR = 25; % in dB %CONFIGURABLE
@@ -162,3 +166,5 @@ title('Output Data')
 
 outputTable = table(txData, txSig, awgnSig, therSig, phaseSig, rxData);
 writetable(outputTable, 'satTestTable.csv');
+
+end

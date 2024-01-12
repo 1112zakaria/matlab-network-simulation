@@ -1,8 +1,10 @@
-import matlab.engine
+import satTest
 
 if __name__ == "__main__":
-    eng = matlab.engine.start_matlab()
     print('Started matlab engine...')
-    eng.quit()
+
+    analyzer = satTest.initialize()
+    analyzer.satTest()
+    
     print('Quit matlab engine!')
     pass
