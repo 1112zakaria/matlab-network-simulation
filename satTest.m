@@ -1,16 +1,28 @@
-function outputTable = satTest()
+function outputTable = satTest(pSnr, pNumBits, pModOrd)
+
+%% Argument Validation
+% FIXME: ask Richard what the appropriate bounds are
+if pSnr <= 0
+    pSnr = 25;
+end
+if pNumBits <= 0
+    pNumBits = 40;
+end
+if pModOrd <= 0
+    pModOrd = 64;
+end
 
 %% Variables
 
-SNR = 25; % in dB %CONFIGURABLE
+SNR = pSnr; % in dB %CONFIGURABLE
 
 %numBits = 256*60; % number of transmitted bits
-numBits = 40; %CONFIGURABLE
+numBits = pNumBits; %CONFIGURABLE
 
 %SNRin = Input SNR of the system
 %SNRout = Output SNR of the system
 
-modOrd = 64; % Modulation Order %CONFIGURABLE
+modOrd = pModOrd; % Modulation Order %CONFIGURABLE
 dFreq = 20E9; % Downlink Frequency
 uFreq = 30E9; % Uplink Frequency
 
