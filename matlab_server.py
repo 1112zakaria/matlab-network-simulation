@@ -1,5 +1,6 @@
 from flask import Flask
 import satTest
+import parse_data
 
 app = Flask(__name__)
 
@@ -11,7 +12,8 @@ def hello_world():
 def run_satTest():
     # arguments? default arg values?
     # run satTest and then
-    return "success"
+    data = parse_data.run_satTest()
+    return data
 
 if __name__ == "__main__":
     # run the flask server
