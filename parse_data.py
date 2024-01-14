@@ -6,7 +6,8 @@ SATTEST_PATH = "satTestTable.csv"
 
 class SatTestMapper:
     # object that contains data to send.
-    def __init__(self, txData, txSig, awgnSig, therSig, phaseSig, rxData_1, rxData_2):
+    def __init__(self, idx, txData, txSig, awgnSig, therSig, phaseSig, rxData_1, rxData_2):
+        self.idx = idx
         self.txData = txData
         self.txSig = txSig
         self.awgnSig = awgnSig
@@ -17,6 +18,8 @@ class SatTestMapper:
 
     def toDict(self) -> dict:
         data = {}
+
+        data['idx'] = self.idx
 
         data['txData'] = self.txData
 
@@ -62,11 +65,13 @@ def read_satTest() -> list[dict]:
     row_data: list[dict] = []
 
     # iterate each row, for each time step, store each col value
+    idx = 1 # FIXME: is there a single-source way of getting idx?
     for i, j in df.iterrows():
         row_data.append(SatTestMapper(
-            j['txData'], j['txSig'], j['awgnSig'], j['therSig'],
+            idx, j['txData'], j['txSig'], j['awgnSig'], j['therSig'],
             j['phaseSig'], j['rxData_1'], j['rxData_2']
         ).toDict())
+        idx += 1
     return row_data
 
 if __name__ == "__main__":
