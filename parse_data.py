@@ -46,7 +46,7 @@ class SatTestMapper:
 def get_complex_number(val: str) -> complex:
     return complex(val.replace("i", "j"))
 
-def read_satTest() -> list[dict]:
+def run_satTest() -> list[dict]:
     # FIXME: not reentrant/thread-safe
     # returns some usable JSON/dict data
     df = pd.read_csv(SATTEST_PATH)
@@ -62,5 +62,5 @@ def read_satTest() -> list[dict]:
     return row_data
 
 if __name__ == "__main__":
-    dict_data = read_satTest()
+    dict_data = run_satTest()
     pprint(dict_data)
