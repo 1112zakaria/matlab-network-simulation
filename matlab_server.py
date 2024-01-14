@@ -12,11 +12,11 @@ def validate_satTest_args(snr, num_bits, mod_ord) -> dict:
     # returns **args dict
     args = {}
     if snr is not None:
-        args['snr'] = int(snr)
+        args['snr'] = float(snr)
     if num_bits is not None:
-        args['num_bits'] = int(num_bits)
+        args['num_bits'] = float(num_bits)
     if mod_ord is not None:
-        args['mod_ord'] = int(mod_ord)
+        args['mod_ord'] = float(mod_ord)
     return args
 
 @app.route('/satTest', methods=['GET'])

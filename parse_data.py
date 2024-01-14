@@ -1,8 +1,13 @@
 import pandas as pd
 from pprint import pprint
+import satTest
 
 PATH = "satTestTable.csv"
 SATTEST_PATH = "satTestTable.csv"
+
+# initialize matlab engines
+print('initializing matlab engines')
+satTest_handler = satTest.initialize()
 
 class SatTestMapper:
     # object that contains data to send.
@@ -45,10 +50,11 @@ class SatTestMapper:
         num = complex(n.replace("i", "j"))
         return num.real, num.imag
 
-def run_satTest(snr=25, num_bits=40, mod_ord=64):
+def run_satTest(snr=25.0, num_bits=40.0, mod_ord=64.0):
     # FIXME: put args as struct?
     # TODO: lock this function to single-thread access
     # call matlab function
+    satTest_handler.satTest(snr, num_bits, mod_ord)
 
     # read output
     return read_satTest()
