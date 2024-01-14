@@ -45,11 +45,7 @@ class SatTestMapper:
         num = complex(n.replace("i", "j"))
         return num.real, num.imag
 
-
-def get_complex_number(val: str) -> complex:
-    return complex(val.replace("i", "j"))
-
-def run_satTest(snr=25, numBits=40, modOrd=64):
+def run_satTest(snr=25, num_bits=40, mod_ord=64):
     # FIXME: put args as struct?
     # TODO: lock this function to single-thread access
     # call matlab function
