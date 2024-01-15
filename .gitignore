@@ -1,2 +1,7 @@
-.venv
+.venv/
 *.csv
+__pycache__/
+for_redistribution/
+for_testing/
+PackagingLog.html
+*.prj
