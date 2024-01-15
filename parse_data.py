@@ -11,15 +11,34 @@ satTest_handler = satTest.initialize()
 
 class SatTestMapper:
     # object that contains data to send.
-    def __init__(self, idx, txData, txSig, awgnSig, therSig, phaseSig, rxData_1, rxData_2):
+    def __init__(self, idx: int, row: pd.Series):
         self.idx = idx
-        self.txData = txData
-        self.txSig = txSig
-        self.awgnSig = awgnSig
-        self.therSig = therSig
-        self.phaseSig = phaseSig
-        self.rxData_1 = rxData_1
-        self.rxData_2 = rxData_2
+        self._parseRow(row)
+
+    def _parseRow(self, row: pd.Series):
+        self.txData = row['txData']
+        self.txSig = row['txSig']
+        self.awgnSig = row['awgnSig']
+        self.therSig = row['therSig']
+        self.phaseSig = row['phaseSig']
+        self.rxData = None
+
+        # determine if 4, 2, or 1 column
+        # FIXME: ask Richard if 4 is the max # bits the QAM demodulation thing reaches
+        rxData = row['rxData'] if 'rxData' in row else None
+        rxData_1 = row['rxData_1'] if 'rxData_1' in row else None
+        rxData_2 = row['rxData_2'] if 'rxData_2' in row else None
+        rxData_3 = row['rxData_3'] if 'rxData_3' in row else None
+        rxData_4 = row['rxData_4'] if 'rxData_4' in row else None
+        if 'rxData_4' in row:
+            # 4 columns
+            self.rxData = [rxData_1, rxData_2, rxData_3, rxData_4]
+        elif 'rxData_2' in row:
+            # 2 columns
+            self.rxData = [rxData_1, rxData_2]
+        else:
+            # 1 column
+            self.rxData = [rxData]
 
     def toDict(self) -> dict:
         data = {}
@@ -40,9 +59,7 @@ class SatTestMapper:
         real, imag = self.splitComplexNumber(self.phaseSig)
         data['phaseSig'] = {'real': real, 'imag': imag}
 
-        data['rxData_1'] = self.rxData_1
-        
-        data['rxData_2'] = self.rxData_2
+        data['rxData'] = self.rxData
 
         return data
 
@@ -69,10 +86,7 @@ def read_satTest() -> list[dict]:
     # iterate each row, for each time step, store each col value
     idx = 1 # FIXME: is there a single-source way of getting idx?
     for i, j in df.iterrows():
-        row_data.append(SatTestMapper(
-            idx, j['txData'], j['txSig'], j['awgnSig'], j['therSig'],
-            j['phaseSig'], j['rxData_1'], j['rxData_2']
-        ).toDict())
+        row_data.append(SatTestMapper(idx, j).toDict())
         idx += 1
     return row_data
 
