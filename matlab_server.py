@@ -34,4 +34,4 @@ def run_satTest():
 
 if __name__ == "__main__":
     # run the flask server
-    app.run(port=6000)
+    app.run(port=7000)
