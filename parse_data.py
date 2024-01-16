@@ -14,8 +14,8 @@ satTest_handler = satTest.initialize()
 
 class SatTestMapper:
     # object that contains data to send.
-    def __init__(self, idx: int, row: pd.Series):
-        self.idx = idx
+    def __init__(self, rowIdx: int, row: pd.Series):
+        self.rowIdx = rowIdx
         self._parseRow(row)
 
     def _parseRow(self, row: pd.Series):
@@ -46,7 +46,7 @@ class SatTestMapper:
     def toDict(self) -> dict:
         data = {}
 
-        data['idx'] = self.idx
+        data['rowIdx'] = self.rowIdx
 
         data['txData'] = self.txData
 
