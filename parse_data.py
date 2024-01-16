@@ -5,14 +5,17 @@ import satTest
 PATH = "satTestTable.csv"
 SATTEST_PATH = "satTestTable.csv"
 
+IMAG_KEY = 'imaginary'
+REAL_KEY = 'real'
+
 # initialize matlab engines
 print('initializing matlab engines')
 satTest_handler = satTest.initialize()
 
 class SatTestMapper:
     # object that contains data to send.
-    def __init__(self, idx: int, row: pd.Series):
-        self.idx = idx
+    def __init__(self, rowIdx: int, row: pd.Series):
+        self.rowIdx = rowIdx
         self._parseRow(row)
 
     def _parseRow(self, row: pd.Series):
@@ -43,21 +46,21 @@ class SatTestMapper:
     def toDict(self) -> dict:
         data = {}
 
-        data['idx'] = self.idx
+        data['rowIdx'] = self.rowIdx
 
         data['txData'] = self.txData
 
         real, imag = self.splitComplexNumber(self.txSig)
-        data['txSig'] = {'real': real, 'imag': imag}
+        data['txSig'] = {REAL_KEY: real, IMAG_KEY: imag}
 
         real, imag = self.splitComplexNumber(self.awgnSig)
-        data['awgnSig'] = {'real': real, 'imag': imag}
+        data['awgnSig'] = {REAL_KEY: real, IMAG_KEY: imag}
 
         real, imag = self.splitComplexNumber(self.therSig)
-        data['therSig'] = {'real': real, 'imag': imag}
+        data['therSig'] = {REAL_KEY: real, IMAG_KEY: imag}
 
         real, imag = self.splitComplexNumber(self.phaseSig)
-        data['phaseSig'] = {'real': real, 'imag': imag}
+        data['phaseSig'] = {REAL_KEY: real, IMAG_KEY: imag}
 
         data['rxData'] = self.rxData
 
