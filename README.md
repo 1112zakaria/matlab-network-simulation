@@ -25,3 +25,16 @@ You will have to also install the Matlab compiled Python package(s). To do so, r
 ```
 python setup.py install
 ```
+
+## Deploy in Docker
+You can deploy this application in a Docker container environment via the following scripts. Note that the Docker image will eat up about ~10-11 GB of disk space ;-;
+
+To build:
+```
+sh ./build.sh
+```
+
+To run:
+```
+sh ./run.sh
+```

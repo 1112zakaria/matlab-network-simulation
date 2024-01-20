@@ -32,6 +32,10 @@ def run_satTest():
     # FIXME: should I include configuration settings in the output?
     return data
 
+def create_app(config_filename):
+    app = Flask(__name__)
+    app.config.from_pyfile(config_filename)
+
 if __name__ == "__main__":
     # run the flask server
     app.run(port=7000)
