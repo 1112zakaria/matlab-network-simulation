@@ -1,1 +1,1 @@
-docker run -p 5000:5000 matlab-server
+docker run -p 7000:7000 matlab-server
